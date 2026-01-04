@@ -33,32 +33,90 @@
 </header>
 
 <section id="buy">
+  <h2 style="text-align:center">Shop</h2>
+
   <div class="product">
     <div>
       <img src="https://via.placeholder.com/600x400?text=Minimal+Golf+Tees+30" alt="30 Minimal Golf Tees" />
     </div>
     <div>
-      <h2>30 Wooden Golf Tees</h2>
-      <p>Simple, reliable wooden golf tees. Ideal for casual rounds and practice sessions.</p>
+      <h3>30 Wooden Golf Tees</h3>
+      <p>Simple, reliable wooden golf tees for casual rounds and practice.</p>
       <div class="price">£1.50</div>
-      <ul class="features">
-        <li>✔ 30 premium wooden tees</li>
-        <li>✔ Consistent height & durability</li>
-        <li>✔ Minimal packaging</li>
-        <li>✔ UK delivery</li>
-      </ul>
+
+      <label>Quantity:</label><br><br>
+      <input type="number" id="qty30" value="1" min="1" style="padding:8px;width:80px;" />
 
       <div class="checkout">
-        <h3>Test Checkout (No Payment Taken)</h3>
-        <label for="postcode">Enter UK Postcode:</label><br><br>
-        <input type="text" id="postcode" placeholder="e.g. SW1A 1AA" style="padding:10px;width:100%;max-width:300px;" />
+        <h4>Test Checkout (No Payment Taken)</h4>
+        <input type="text" id="postcode30" placeholder="UK Postcode" style="padding:10px;width:100%;max-width:300px;" />
         <br><br>
-        <button class="btn" onclick="calculateShipping()">Calculate Total</button>
-        <p id="total" style="margin-top:20px;font-weight:bold;"></p>
+        <button class="btn" onclick="calculateShipping(1.50, 'qty30', 'postcode30', 'total30')">Calculate Total</button>
+        <p id="total30" style="margin-top:15px;font-weight:bold;"></p>
+      </div>
+    </div>
+  </div>
+
+  <br><br>
+
+  <div class="product">
+    <div>
+      <img src="https://via.placeholder.com/600x400?text=Minimal+Golf+Tees+50" alt="50 Minimal Golf Tees" />
+    </div>
+    <div>
+      <h3>50 Wooden Golf Tees</h3>
+      <p>Best value pack for regular golfers.</p>
+      <div class="price">£2.00</div>
+
+      <label>Quantity:</label><br><br>
+      <input type="number" id="qty50" value="1" min="1" style="padding:8px;width:80px;" />
+
+      <div class="checkout">
+        <h4>Test Checkout (No Payment Taken)</h4>
+        <input type="text" id="postcode50" placeholder="UK Postcode" style="padding:10px;width:100%;max-width:300px;" />
+        <br><br>
+        <button class="btn" onclick="calculateShipping(2.00, 'qty50', 'postcode50', 'total50')">Calculate Total</button>
+        <p id="total50" style="margin-top:15px;font-weight:bold;"></p>
       </div>
     </div>
   </div>
 </section>
+
+<section>
+  <h2 style="text-align:center">Policies</h2>
+  <div class="info-grid">
+    <div class="card">
+      <h3>Shipping</h3>
+      <p>UK shipping only. Mainland UK standard delivery. Northern Ireland shipping calculated automatically.</p>
+    </div>
+    <div class="card">
+      <h3>Returns</h3>
+      <p><strong>No returns.</strong> All sales are final due to the low-cost nature of the product.</p>
+    </div>
+    <div class="card">
+      <h3>Checkout</h3>
+      <p>This is a test checkout. No payments are taken at this stage.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  function calculateShipping(price, qtyId, postcodeId, outputId) {
+    const qty = parseInt(document.getElementById(qtyId).value);
+    const postcode = document.getElementById(postcodeId).value.trim();
+
+    if (!postcode || qty < 1) {
+      document.getElementById(outputId).innerText = 'Please enter a valid quantity and postcode.';
+      return;
+    }
+
+    let shipping = postcode.toUpperCase().startsWith('BT') ? 3.50 : 1.50;
+    const subtotal = price * qty;
+    const total = (subtotal + shipping).toFixed(2);
+
+    document.getElementById(outputId).innerText = `Subtotal: £${subtotal.toFixed(2)} | Shipping: £${shipping.toFixed(2)} | Total: £${total}`;
+  }
+</script>
 
 <script>
   function calculateShipping() {
